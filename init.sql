@@ -68,14 +68,12 @@ CREATE table bangF.comment(
 create table bangF.post_x_like(
     `id` int PRIMARY KEY not null AUTO_INCREMENT,
     `post_id` int,
-    `author_id` int,
-    `create_time` DATETIME
+    `author_id` int
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table bangF.comment_x_like(
     `id` int PRIMARY KEY not null AUTO_INCREMENT,
     `comment_id` int,
-    `author_id` int,
-    `create_time` DATETIME
+    `author_id` int
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

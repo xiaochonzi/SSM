@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaochonzi.dao.UserDAO">
+    <resultMap id="userMapper" type="com.xiaochonzi.entityUser">
+        <id column="id" property="id"/>
+        <result column="email" property="email"/>
+        <result column="username" property="userName"/>
+        <result column="password_hash" property="passwordHash"/>
+        <result column="comfirmed" property="comfirmed"/>
+        <result column="last_seen" property="lastSeen"/>
+        <result column="member_since" property="memberSince"/>
+        <result column="avatar_hash" property="avatar_hash"/>
+        <association property="role" column="role_id" javaType="com.xiaochonzi.entity.Role"
+                     select="com.xiaochonzi.dao.RoleDAO.selectByRole" fetchType="eager"/>
+    </resultMap>
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.xiaochonzi.entity.User">
+        INSERT into bangF.user (email, username, password_hash, confirmed, member_since, last_seen, avatar_hash, role_id)
+        VALUES (#{email},#{userName},#{passwordHash},#{comfirmed},#{memberSince},#{lastSeen},#{avatarHash},#{role.roleId})
+    </insert>
+
+    <delete id="deleteUser" parameterType="com.xiaochonzi.entity.User">
+        DELETE * from banf.user where
+        <choose>
+            <when test="userName!=null">
+                username = #{userName}
+            </when>
+            <when test="email!=null">
+                email = #{email}
+            </when>
+            <otherwise>
+                id = #{id}
+            </otherwise>
+        </choose>
+    </delete>
+
+    <update id="updateUser" parameterType="com.xiaochonzi.entity.User">
+        update bangF.user
+        <set>
+            <if test="userName!=null">
+                username = #{userName},
+            </if>
+            <if test="email!=null">
+                email = #{email}
+            </if>
+            <if test="passwordHash!=null">
+                password_hash = #{passwordHash},
+            </if>
+            <if test="comfirmed!=null">
+                comfirmed = #{comfirmed},
+            </if>
+            <if test="memberSince!=null">
+                member_since = #{member_since},
+            </if>
+            <if test="last_seen!=null">
+                last_seen = #{lastSeen},
+            </if>
+            <if test="avatarHash!=null">
+                avatar_hash = #{avatarHash},
+            </if>
+            <if test="role!=null and role.roleId!=null">
+                role_id = #{role.roleId}
+            </if>
+        </set>
+    </update>
+    <select id="selectByUser" parameterType="com.xiaochonzi.entity.User" resultMap="userMapper">
+        select * from bangF.user where
+        <choose>
+            <when test="userName!=null">
+                username = #{userName}
+            </when>
+            <when test="email!=null">
+                email = #{email}
+            </when>
+            <otherwise>
+                id = #{id}
+            </otherwise>
+        </choose>
+    </select>
+</mapper>

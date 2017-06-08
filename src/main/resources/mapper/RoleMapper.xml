@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaochonzi.dao.RoleDAO">
+    <resultMap id="roleMap" type="com.xiaochonzi.entity.Role">
+        <id column="id" property="id" javaType="int"/>
+        <result column="name" property="name" javaType="String"/>
+        <result column="permission" property="permission" javaType="int"/>
+    </resultMap>
+    <select id="selectByRole" parameterType="com.xiaochonzi.entity.Role" resultMap="roleMap">
+        select id,name,permission from bangF.role
+        <where>
+            <if test="id!=null">
+                 id=#{id}
+            </if>
+            <if test="name!=null">
+               and name = #{name}
+            </if>
+        </where>
+    </select>
+</mapper>
