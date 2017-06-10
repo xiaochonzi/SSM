@@ -25,6 +25,13 @@ public interface CommentDAO {
     public int deleteCommentById(int id);
 
     /**
+     * 查询文章评论
+     * @param postId
+     * @return
+     */
+    public List<Comment> selectCommentByPostId(int postId);
+
+    /**
      * 评论点赞人数
      * @param commentId
      * @return

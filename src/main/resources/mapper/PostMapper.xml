@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaochonzi.dao.PostDAO">
+    <insert id="insertPost" parameterType="com.xiaochonzi.entity.Post">
+        insert into bangF.post (title, body, create_time, author_id, body_html, like_num)
+        values(#{title},#{body},#{createTime},#{author.id},#{bodyHtml},#{likeNum})
+    </insert>
+
+    <delete id="deletePostById" parameterType="int">
+        delete * from bangF.post where id = #{id}
+    </delete>
+
+    <update id="updatePost" parameterType="com.xiaochonzi.entity.Post">
+        update bangF.post
+        <set>
+            <if test="title!=null">title=#{title},</if>
+            <if test="body!=null"></if>
+        </set>
+    </update>
+</mapper>

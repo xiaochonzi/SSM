@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiaochonzi.dao.CommentDAO">
+    <select id="selectCommentByPostId" parameterType="int" resultType="com.xiaochonzi.entity.Comment">
+        SELECT * from bangF.comment where post_id = #{postId}
+    </select>
+
+    <select id="selectCommentLikeUsers" parameterType="int" resultType="com.xiaochonzi.entity.User">
+        select b.*
+        from bangF.comment a, bangF.comment_x_like b, bangF."user" c
+        where a.id = b.comment_id
+        and b.author_id = c.id
+         and a.id = #{commnetId}
+    </select>
+
+    <select id="commentLikeCount" parameterType="int" resultType="int">
+        select count(*)
+        from bangF.comment a, bangF.comment_x_like b, bangF."user" c
+        where a.id = b.comment_id
+        and b.author_id = c.id
+         and a.id = #{commnetId}
+    </select>
+
+    <insert id="insertComment" parameterType="com.xiaochonzi.entity.Comment" useGeneratedKeys="true" keyProperty="id">
+        insert into bangF.comment (body, body_html, create_time, disabled, author_id, post_id, like_num)
+        VALUES (#{body},#{bodyHtml},#{createTime},#{disabled},#{authorId},#{postId},#{likeNum})
+    </insert>
+
+    <delete id="deleteCommentById" parameterType="int">
+        DELETE * from bangF.comment where id = #{commentId}
+    </delete>
+</mapper>

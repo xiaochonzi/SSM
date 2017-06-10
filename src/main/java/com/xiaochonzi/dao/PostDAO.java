@@ -1,5 +1,6 @@
 package com.xiaochonzi.dao;
 
+import com.xiaochonzi.entity.Comment;
 import com.xiaochonzi.entity.Post;
 import com.xiaochonzi.entity.User;
 
