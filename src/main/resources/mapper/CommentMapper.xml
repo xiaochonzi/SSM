@@ -8,7 +8,7 @@
     </select>
 
     <select id="selectCommentLikeUsers" parameterType="int" resultType="com.xiaochonzi.entity.User">
-        select b.*
+        select c.*
         from bangF.comment a, bangF.comment_x_like b, bangF."user" c
         where a.id = b.comment_id
         and b.author_id = c.id

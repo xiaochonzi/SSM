@@ -9,6 +9,8 @@ CREATE TABLE bangF.role
     UNIQUE INDEX role_name_unidex (`name`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE role ADD COLUMN default BOOL;
+
 create TABLE bangF.user(
     `id` int PRIMARY KEY not NULL AUTO_INCREMENT,
     `email` VARCHAR(64)  NOT NULL ,

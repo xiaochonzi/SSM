@@ -7,6 +7,7 @@ public class Role {
     private Integer id;
     private String name;
     private Integer permission;
+    private Boolean _default;
 
     public Integer getId() {
         return id;
@@ -31,4 +32,6 @@ public class Role {
     public void setPermission(Integer permission) {
         this.permission = permission;
     }
+
+
 }

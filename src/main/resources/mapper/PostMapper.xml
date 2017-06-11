@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaochonzi.dao.PostDAO">
-    <insert id="insertPost" parameterType="com.xiaochonzi.entity.Post">
+    <insert id="insertPost" parameterType="com.xiaochonzi.entity.Post" useGeneratedKeys="true" keyProperty="id">
         insert into bangF.post (title, body, create_time, author_id, body_html, like_num)
         values(#{title},#{body},#{createTime},#{author.id},#{bodyHtml},#{likeNum})
     </insert>
@@ -16,7 +16,33 @@
         update bangF.post
         <set>
             <if test="title!=null">title=#{title},</if>
-            <if test="body!=null"></if>
+            <if test="body!=null">body=#{body},</if>
+            <if test="bodyHtml!=null">body_html=#{bodyHtml},</if>
+            <if test="createTime!=null">create_time=#{createTime},</if>
+            <if test="author!=null and author.id!=null">author_id=#{author.id},</if>
+            <if test="likeNum!=null">like_num=#{likeNum}</if>
         </set>
     </update>
+
+    <select id="selectPostById" parameterType="int"resultType="com.xiaochonzi.entity.Post">
+        select * from bangF.post where id = #{postId}
+    </select>
+
+    <select id="selectPostByAuthor" parameterType="int" resultType="com.xiaochonzi.entity.Post">
+        SELECT * from bangF.post where author_id = #{authorId}
+    </select>
+
+    <select id="postLikeCount" parameterType="int" resultType="int">
+        select count(*) from bangF.post a, bangF.post_x_like b ,bangF.user c
+        where a.id = b.post_id
+        and b.author_id = c.id
+        and a.id = #{postId}
+    </select>
+
+    <select id="selectPostLikeUsers" parameterType="int" resultType="com.xiaochonzi.entity.User">
+        select c.* from bangF.post a, bangF.post_x_like b ,bangF.user c
+        where a.id = b.post_id
+        and b.author_id = c.id
+        and a.id = #{postId}
+    </select>
 </mapper>
