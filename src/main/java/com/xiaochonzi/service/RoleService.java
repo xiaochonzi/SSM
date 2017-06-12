@@ -7,5 +7,5 @@ import com.xiaochonzi.entity.Role;
  */
 public interface RoleService {
 
-
+    Role selectRole(boolean _default);
 }

@@ -15,7 +15,10 @@
                  id=#{id}
             </if>
             <if test="name!=null">
-               and name = #{name}
+               and `name` = #{name}
+            </if>
+            <if test="_default!=null">
+               and `default` = #{_default}
             </if>
         </where>
     </select>

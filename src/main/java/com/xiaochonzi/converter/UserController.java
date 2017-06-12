@@ -2,6 +2,7 @@ package com.xiaochonzi.converter;
 
 import com.xiaochonzi.entity.Role;
 import com.xiaochonzi.entity.User;
+import com.xiaochonzi.service.RoleService;
 import com.xiaochonzi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,6 +25,7 @@ public class UserController {
 
     @Autowired
     @Qualifier("roleService")
+    private RoleService roleService;
 
 
     @RequestMapping("/login")
@@ -41,6 +43,7 @@ public class UserController {
     }
 
     @RequestMapping("/register")
+    @ResponseBody
     public String register(@RequestParam("email")String email,@RequestParam("username")String username,
                            @RequestParam("password")String password){
         User user = new User();
@@ -50,7 +53,14 @@ public class UserController {
         user.setComfirmed(false);
         user.setMemberSince(new Date());
 
-        user.setRole();
+        Role role = roleService.selectRole(true);
+        user.setRole(role);
+        int ret = userService.register(user);
+        if(ret>0){
+            return "success";
+        }else{
+            return "error";
+        }
     }
 
 

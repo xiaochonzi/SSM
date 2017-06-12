@@ -33,5 +33,11 @@ public class Role {
         this.permission = permission;
     }
 
+    public Boolean get_default() {
+        return _default;
+    }
 
+    public void set_default(Boolean _default) {
+        this._default = _default;
+    }
 }

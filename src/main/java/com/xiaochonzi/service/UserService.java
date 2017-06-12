@@ -8,4 +8,6 @@ import com.xiaochonzi.entity.User;
 public interface UserService {
 
     User selectUserByUser(User user);
+
+    int register(User user);
 }

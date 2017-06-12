@@ -1,6 +1,7 @@
 package com.xiaochonzi.service.impl;
 
 import com.xiaochonzi.dao.UserDAO;
+import com.xiaochonzi.entity.User;
 import com.xiaochonzi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -17,4 +18,11 @@ public class UserServiceImpl implements UserService {
     private UserDAO userDAO;
 
 
+    public User selectUserByUser(User user) {
+        return userDAO.selectByUser(user);
+    }
+
+    public int register(User user) {
+        return userDAO.insertUser(user);
+    }
 }
