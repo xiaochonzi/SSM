@@ -7,6 +7,7 @@
         <id column="id" property="id" javaType="int"/>
         <result column="name" property="name" javaType="String"/>
         <result column="permission" property="permission" javaType="int"/>
+        <result column="default" property="_default" javaType="boolean"/>
     </resultMap>
     <select id="selectByRole" parameterType="com.xiaochonzi.entity.Role" resultMap="roleMap">
         select id,name,permission from bangF.role

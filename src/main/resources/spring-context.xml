@@ -12,6 +12,7 @@
 
     <context:property-placeholder location="classpath:db.properties"/>
 
+    <!--数据源-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${jdbc.driver}"/>
         <property name="jdbcUrl" value="${jdbc.url}"/>
@@ -30,21 +31,25 @@
         <property name="idleConnectionTestPeriod" value="${jdbc.idleConnectionTestPeriod}"/>
     </bean>
 
+    <!--mybatis session-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
     </bean>
 
+    <!--mybatis 映射器-->
     <bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.xiaochonzi.dao"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
 
+    <!--事务管理器-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
+    <!--声明式事务-->
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="insert*" propagation="REQUIRED"/>
@@ -57,6 +62,21 @@
         <aop:pointcut id="pointcut" expression="execution(* com.xiaochonzi.dao.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcut"/>
     </aop:config>
+
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value=""/>
+        <property name="protocol" value="smtp"/>
+        <property name="port" value="25"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
 
     <context:component-scan base-package="com.xiaochonzi.aspect,com.xiaochonzi.service"/>
 </beans>
