@@ -64,11 +64,11 @@
     </aop:config>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value=""/>
+        <property name="host" value="smtp.163.com"/>
         <property name="protocol" value="smtp"/>
-        <property name="port" value="25"/>
-        <property name="username" value=""/>
-        <property name="password" value=""/>
+        <property name="port" value="465"/>
+        <property name="username" value="swtxcz1993"/>
+        <property name="password" value="swt1169876840"/>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.transport.protocol">smtp</prop>
@@ -77,6 +77,13 @@
             </props>
         </property>
     </bean>
+
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+        <property name="corePoolSize" value="10"/>
+        <property name="maxPoolSize" value="30"/>
+    </bean>
+
+
 
     <context:component-scan base-package="com.xiaochonzi.aspect,com.xiaochonzi.service"/>
 </beans>
