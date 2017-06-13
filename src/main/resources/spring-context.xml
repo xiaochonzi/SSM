@@ -67,8 +67,8 @@
         <property name="host" value="smtp.163.com"/>
         <property name="protocol" value="smtp"/>
         <property name="port" value="465"/>
-        <property name="username" value="swtxcz1993"/>
-        <property name="password" value="swt1169876840"/>
+        <property name="username" value=""/>
+        <property name="password" value=""/>
         <property name="javaMailProperties">
             <props>
                 <prop key="mail.transport.protocol">smtp</prop>
@@ -82,7 +82,6 @@
         <property name="corePoolSize" value="10"/>
         <property name="maxPoolSize" value="30"/>
     </bean>
-
 
 
     <context:component-scan base-package="com.xiaochonzi.aspect,com.xiaochonzi.service"/>

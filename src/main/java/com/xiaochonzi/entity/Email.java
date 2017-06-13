@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by stone on 17/6/13.
  */
-public class ApplicationEmail implements Serializable {
+public class Email implements Serializable {
 
     private String address;
     private String cc;

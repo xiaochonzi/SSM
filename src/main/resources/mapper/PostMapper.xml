@@ -24,7 +24,7 @@
         </set>
     </update>
 
-    <select id="selectPostById" parameterType="int"resultType="com.xiaochonzi.entity.Post">
+    <select id="selectPostById" parameterType="int" resultType="com.xiaochonzi.entity.Post">
         select * from bangF.post where id = #{postId}
     </select>
 

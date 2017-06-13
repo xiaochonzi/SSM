@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xiaochonzi.dao.UserDAO">
-    <resultMap id="userMapper" type="com.xiaochonzi.entityUser">
+    <resultMap id="userMapper" type="com.xiaochonzi.entity.User">
         <id column="id" property="id"/>
         <result column="email" property="email"/>
         <result column="username" property="userName"/>
