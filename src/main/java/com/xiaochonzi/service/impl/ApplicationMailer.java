@@ -48,15 +48,25 @@ public class ApplicationMailer implements MailService {
      * 同步邮件发送
      * @param email
      */
-    public void sendMailSychronized(Email email) {
+    public void sendMailSychronized(final Email email) {
+        MimeMessage message = null;
         try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message);
-            helper.setTo(InternetAddress.parse(email.getAddress()));
-            helper.setText(email.getContent());
+            message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(new InternetAddress("stone931027@gmail.com", "知识林", "UTF-8"));
+            helper.setTo("326688269@qq.com");
+            helper.setSubject("标题：发送Html内容");
+
+            StringBuffer sb = new StringBuffer();
+            sb.append("<h1>大标题-h1</h1>")
+                    .append("<p style='color:#F00'>红色字</p>")
+                    .append("<p style='text-align:right'>右对齐</p>");
+            helper.setText(sb.toString(), true);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        mailSender.send(message);
     }
 
 }
