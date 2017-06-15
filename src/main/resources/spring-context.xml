@@ -64,22 +64,13 @@
     </aop:config>
 
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="smtp.gmail.com"/>
+        <property name="host" value="smtp.163.com"/>
         <property name="protocol" value="smtp"/>
-        <property name="port" value="465"/>
-        <property name="username" value=""/>
-        <property name="password" value="">
+        <property name="port" value="25"/>
+        <property name="username" value="${email.username}"/>
+        <property name="password" value="${email.password}">
         </property>
         <property name="defaultEncoding" value="utf-8"/>
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.transport.protocol">smtp</prop>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.starttls.enable">true</prop>
-                <prop key="mail.smtp.starttls.required">true</prop>
-                <prop key="mail.debug">true</prop>
-            </props>
-        </property>
     </bean>
 
     <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">

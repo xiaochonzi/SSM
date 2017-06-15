@@ -10,6 +10,8 @@ import java.security.MessageDigest;
  */
 public class Constants {
 
+    public static final String ADMIN_EMAIL = "swtxcz1993@163.com";
+
     public static String md5Hex(String src){
         try{
             MessageDigest md5 = MessageDigest.getInstance("MD5");

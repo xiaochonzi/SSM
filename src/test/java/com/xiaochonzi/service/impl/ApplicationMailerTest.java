@@ -27,7 +27,7 @@ public class ApplicationMailerTest {
         Email email = new Email();
         email.setSubject("测试");
         email.setAddress("326688269@qq.com");
-        email.setContent("<p>你好</p>");
+        email.setContent("你好");
         mailService.sendMail(email);
     }
 
