@@ -1,7 +1,9 @@
 package com.xiaochonzi.converter;
 
+import com.xiaochonzi.entity.Email;
 import com.xiaochonzi.entity.Role;
 import com.xiaochonzi.entity.User;
+import com.xiaochonzi.service.MailService;
 import com.xiaochonzi.service.RoleService;
 import com.xiaochonzi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,10 @@ public class UserController {
     @Autowired
     @Qualifier("roleService")
     private RoleService roleService;
+
+    @Autowired
+    @Qualifier("mailer")
+    private MailService mailService;
 
 
     @RequestMapping("/login")
@@ -57,6 +63,10 @@ public class UserController {
         user.setRole(role);
         int ret = userService.register(user);
         if(ret>0){
+            Email e_mail = new Email();
+            e_mail.setAddress(email);
+            e_mail.setSubject("感谢您注册");
+            e_mail.setContent("感谢您注册");
             return "success";
         }else{
             return "error";
