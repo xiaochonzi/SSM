@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.Date;
 
 /**
@@ -51,7 +52,7 @@ public class UserController {
     @RequestMapping("/register")
     @ResponseBody
     public String register(@RequestParam("email")String email,@RequestParam("username")String username,
-                           @RequestParam("password")String password){
+                           @RequestParam("password")String password) throws MessagingException {
         User user = new User();
         user.setEmail(email);
         user.setUserName(username);
@@ -67,6 +68,7 @@ public class UserController {
             e_mail.setAddress(email);
             e_mail.setSubject("感谢您注册");
             e_mail.setContent("感谢您注册");
+            mailService.sendMail(e_mail);
             return "success";
         }else{
             return "error";

@@ -1,0 +1,4 @@
+2017-06-17 15:21:08  [ main:3224 ] - [ ERROR ]  ResourceManager : unable to find resource 'com/xiaochonzi/util/email-register.vm' in any resource loader.
+2017-06-17 15:25:08  [ main:3080 ] - [ ERROR ]  ResourceManager : unable to find resource 'email-register.vm' in any resource loader.
+2017-06-17 15:25:42  [ main:2918 ] - [ ERROR ]  ResourceManager : unable to find resource 'email-register.vm' in any resource loader.
+2017-06-17 15:26:46  [ main:2891 ] - [ ERROR ]  ResourceManager : unable to find resource 'email-register.vm' in any resource loader.

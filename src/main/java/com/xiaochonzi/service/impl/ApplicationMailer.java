@@ -1,22 +1,26 @@
 package com.xiaochonzi.service.impl;
 
 import com.xiaochonzi.entity.Email;
+import com.xiaochonzi.entity.User;
 import com.xiaochonzi.service.MailService;
 import com.xiaochonzi.util.Constants;
+import org.apache.velocity.app.VelocityEngine;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskExecutor;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.velocity.VelocityEngineUtils;
 
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -29,36 +33,43 @@ public class ApplicationMailer implements MailService {
     @Qualifier("mailSender")
     private JavaMailSender mailSender;
 
+
     @Autowired
-    @Qualifier("taskExecutor")
-    private TaskExecutor taskExecutor;
+    @Qualifier("velocityEngine")
+    private VelocityEngine velocityEngine;
 
     /**
      * 异步邮件发送
      * @param email
      * @throws MessagingException
      */
-    public void sendMail(final Email email) throws MessagingException {
-        sendMailSychronized(email);
+
+    public void sendMail(Email email){
+        try{
+            sendMailSychronized(email);
+        }catch (MessagingException e){
+            e.printStackTrace();
+        }
     }
 
     /**
      * 同步邮件发送
      * @param email
      */
-    public void sendMailSychronized(Email email) {
-        MimeMessage message = null;
-        try {
-            Session session= Session.getDefaultInstance(new Properties());
-            message = new MimeMessage(session);
-            MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(new InternetAddress(Constants.ADMIN_EMAIL));
-            helper.setTo(email.getAddress());
-            helper.setSubject(email.getSubject());
-            helper.setText(email.getContent());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void sendMailSychronized(Email email) throws MessagingException {
+        Session session = Session.getDefaultInstance(new Properties());
+        MimeMessage message = new MimeMessage(session);
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setFrom(new InternetAddress(Constants.ADMIN_EMAIL));
+        helper.setTo(email.getAddress());
+        helper.setSubject(email.getSubject());
+        Map model = new HashMap();
+        User user = new User();
+        user.setUserName("10102");
+        model.put("user", user);
+        model.put("url", "");
+        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "email/email-register.vm", "ISO-8859-1", model);
+        helper.setText(text, true);
         mailSender.send(message);
     }
 
