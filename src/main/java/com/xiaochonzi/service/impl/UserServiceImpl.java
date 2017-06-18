@@ -25,4 +25,8 @@ public class UserServiceImpl implements UserService {
     public int register(User user) {
         return userDAO.insertUser(user);
     }
+
+    public int updateUser(User user) {
+        return userDAO.updateUser(user);
+    }
 }

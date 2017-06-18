@@ -11,6 +11,11 @@
     <title>Title</title>
 </head>
 <body>
-你好
+<form action="/register" method="post">
+    <input type="email" name="email">
+    <input type="text" name="username"/>
+    <input type="password" name="password">
+    <input type="submit" value="注册">
+</form>
 </body>
 </html>

@@ -10,4 +10,6 @@ public interface UserService {
     User selectUserByUser(User user);
 
     int register(User user);
+
+    int updateUser(User user);
 }

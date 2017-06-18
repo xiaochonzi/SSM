@@ -9,7 +9,7 @@
     </insert>
 
     <delete id="deletePostById" parameterType="int">
-        delete * from bangF.post where id = #{id}
+        delete  from bangF.post where id = #{id}
     </delete>
 
     <update id="updatePost" parameterType="com.xiaochonzi.entity.Post">

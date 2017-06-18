@@ -63,12 +63,7 @@ public class ApplicationMailer implements MailService {
         helper.setFrom(new InternetAddress(Constants.ADMIN_EMAIL));
         helper.setTo(email.getAddress());
         helper.setSubject(email.getSubject());
-        Map model = new HashMap();
-        User user = new User();
-        user.setUserName("10102");
-        model.put("user", user);
-        model.put("url", "");
-        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "email/email-register.vm", "ISO-8859-1", model);
+        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "email/email-register.vm", "ISO-8859-1", email.getModel());
         helper.setText(text, true);
         mailSender.send(message);
     }

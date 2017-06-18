@@ -9,7 +9,7 @@
     </insert>
 
     <delete id="deleteUserDetailById" parameterType="int">
-        DELETE * from bangF.user_detail where id = #{id}
+        DELETE from bangF.user_detail where id = #{id}
     </delete>
 
     <update id="updateUserDetail" parameterType="com.xiaochonzi.entity.UserDetail">

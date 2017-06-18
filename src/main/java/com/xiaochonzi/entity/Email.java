@@ -1,6 +1,7 @@
 package com.xiaochonzi.entity;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by stone on 17/6/13.
@@ -10,7 +11,7 @@ public class Email implements Serializable {
     private String address;
     private String cc;
     private String subject;
-    private String content;
+    private Map model;
 
     public String getAddress() {
         return address;
@@ -36,11 +37,11 @@ public class Email implements Serializable {
         this.subject = subject;
     }
 
-    public String getContent() {
-        return content;
+    public Map getModel() {
+        return model;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setModel(Map model) {
+        this.model = model;
     }
 }

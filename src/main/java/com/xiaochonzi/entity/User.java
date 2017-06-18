@@ -1,12 +1,15 @@
 package com.xiaochonzi.entity;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONReader;
+import com.alibaba.fastjson.serializer.JSONLibDataFormatSerializer;
 import com.xiaochonzi.util.Constants;
-import org.apache.commons.lang.StringUtils;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.StringTokenizer;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created by stone on 17/6/8.
@@ -109,10 +112,10 @@ public class User {
         String passwordMd5 = Constants.md5Hex(password+salt);
         char []cs = new char[48];
         for(int i=0;i<48;i+=3){
-            cs[i]= password.charAt(i/3*2);
+            cs[i]= passwordMd5.charAt(i/3*2);
             char c = salt.charAt(i/3);
             cs[i+1] = c;
-            cs[i+2] = password.charAt(i/3*2+1);
+            cs[i+2] = passwordMd5.charAt(i/3*2+1);
         }
         this.passwordHash = new String(cs);
     }
@@ -129,5 +132,22 @@ public class User {
         return Constants.md5Hex(password+salt).equals(new String(cs1));
     }
 
+    public String generateConfirmToken(){
+        int expiration = 3600;
+        long curTime = System.currentTimeMillis();
+        long activeTime = curTime + expiration;
+        JSONObject object = new JSONObject();
+        object.put("id",this.id);
+        object.put("expiration",activeTime);
+        BASE64Encoder base64Encoder = new BASE64Encoder();
+        return base64Encoder.encode(object.toJSONString().getBytes());
+    }
 
+    public static Map confirm(String token) throws IOException {
+        BASE64Decoder base64Decoder = new BASE64Decoder();
+        byte []buffer = base64Decoder.decodeBuffer(token);
+        String obj = new String(buffer);
+        Map model = JSON.parseObject(obj);
+        return model;
+    }
 }

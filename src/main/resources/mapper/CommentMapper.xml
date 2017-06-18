@@ -29,6 +29,6 @@
     </insert>
 
     <delete id="deleteCommentById" parameterType="int">
-        DELETE * from bangF.comment where id = #{commentId}
+        DELETE  from bangF.comment where id = #{commentId}
     </delete>
 </mapper>

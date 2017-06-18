@@ -21,7 +21,7 @@
     </insert>
 
     <delete id="deleteUser" parameterType="com.xiaochonzi.entity.User">
-        DELETE * from banf.user where
+        DELETE from banf.user where
         <choose>
             <when test="userName!=null">
                 username = #{userName}
@@ -42,7 +42,7 @@
                 username = #{userName},
             </if>
             <if test="email!=null">
-                email = #{email}
+                email = #{email},
             </if>
             <if test="passwordHash!=null">
                 password_hash = #{passwordHash},
@@ -51,7 +51,7 @@
                 comfirmed = #{comfirmed},
             </if>
             <if test="memberSince!=null">
-                member_since = #{member_since},
+                member_since = #{memberSince},
             </if>
             <if test="last_seen!=null">
                 last_seen = #{lastSeen},
@@ -63,6 +63,7 @@
                 role_id = #{role.roleId}
             </if>
         </set>
+        where id = #{id}
     </update>
     <select id="selectByUser" parameterType="com.xiaochonzi.entity.User" resultMap="userMapper">
         select * from bangF.user where

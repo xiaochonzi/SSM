@@ -1,4 +1,4 @@
-package com.xiaochonzi.converter;
+package com.xiaochonzi.controller;
 
 import com.xiaochonzi.entity.Email;
 import com.xiaochonzi.entity.Role;
@@ -11,9 +11,13 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by stone on 17/6/11.
@@ -67,7 +71,11 @@ public class UserController {
             Email e_mail = new Email();
             e_mail.setAddress(email);
             e_mail.setSubject("感谢您注册");
-            e_mail.setContent("感谢您注册");
+            String token = user.generateConfirmToken();
+            Map model = new HashMap();
+            model.put("user",user);
+            model.put("token",token);
+            e_mail.setModel(model);
             mailService.sendMail(e_mail);
             return "success";
         }else{
@@ -75,5 +83,21 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/confirm/{token}")
+    public ModelAndView confirm(@PathVariable("token")String token,ModelAndView mv) throws IOException {
+        Map model = User.confirm(token);
+        Integer id = (Integer) model.get("id");
+        Long expiration = (Long) model.get("expiration");
+        if(expiration>=System.currentTimeMillis()){
+            User user = new User();
+            user.setId(id);
+            user.setComfirmed(true);
+
+            mv.setViewName("login");
+        }else{
+            mv.addObject("message","链接无效");
+        }
+        return mv;
+    }
 
 }
