@@ -2,11 +2,8 @@ package com.xiaochonzi.entity;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONReader;
-import com.alibaba.fastjson.serializer.JSONLibDataFormatSerializer;
 import com.xiaochonzi.util.Constants;
-import sun.misc.BASE64Decoder;
-import sun.misc.BASE64Encoder;
+import org.apache.commons.codec.binary.Base64;
 
 import java.io.IOException;
 import java.util.*;
@@ -133,19 +130,19 @@ public class User {
     }
 
     public String generateConfirmToken(){
-        int expiration = 3600;
+        long expiration = 1000*60*60*24;
         long curTime = System.currentTimeMillis();
         long activeTime = curTime + expiration;
         JSONObject object = new JSONObject();
         object.put("id",this.id);
         object.put("expiration",activeTime);
-        BASE64Encoder base64Encoder = new BASE64Encoder();
-        return base64Encoder.encode(object.toJSONString().getBytes());
+        Base64 base64 = new Base64(true);
+        return base64.encodeToString(object.toJSONString().getBytes());
     }
 
     public static Map confirm(String token) throws IOException {
-        BASE64Decoder base64Decoder = new BASE64Decoder();
-        byte []buffer = base64Decoder.decodeBuffer(token);
+        Base64 base64 = new Base64(true);
+        byte []buffer = base64.decode(token);
         String obj = new String(buffer);
         Map model = JSON.parseObject(obj);
         return model;

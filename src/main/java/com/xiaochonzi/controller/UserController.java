@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -84,7 +85,7 @@ public class UserController {
     }
 
     @RequestMapping("/confirm/{token}")
-    public ModelAndView confirm(@PathVariable("token")String token,ModelAndView mv) throws IOException {
+    public String confirm(@PathVariable("token")String token, Model m) throws IOException {
         Map model = User.confirm(token);
         Integer id = (Integer) model.get("id");
         Long expiration = (Long) model.get("expiration");
@@ -92,12 +93,12 @@ public class UserController {
             User user = new User();
             user.setId(id);
             user.setComfirmed(true);
-
-            mv.setViewName("login");
+            userService.updateUser(user);
+            return "redirect:/loginForm";
         }else{
-            mv.addObject("message","链接无效");
+            m.addAttribute("message","链接失效");
+            return null;
         }
-        return mv;
     }
 
 }
