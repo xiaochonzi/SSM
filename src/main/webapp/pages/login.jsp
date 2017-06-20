@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="checkbox" id="cbkRember" name="remember"><label>记住密码</label>
+                        <input type="checkbox" id="cbkRember" name="remember" value="Y"><label>记住密码</label>
                     </td>
                 </tr>
                 <tr>
