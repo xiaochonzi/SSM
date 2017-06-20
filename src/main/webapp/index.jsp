@@ -8,14 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>首页</title>
 </head>
 <body>
-<form action="/register" method="post">
-    <input type="email" name="email">
-    <input type="text" name="username"/>
-    <input type="password" name="password">
-    <input type="submit" value="注册">
-</form>
 </body>
 </html>
