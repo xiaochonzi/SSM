@@ -70,8 +70,7 @@ public class UserController {
     @RequestMapping("/doRegister")
     @ResponseBody
     public JsonResult register(@RequestParam("email")String email,@RequestParam("username")String username,
-                           @RequestParam("password")String password) throws MessagingException {
-        JsonResult result = new JsonResult();
+                           @RequestParam("password")String password,JsonResult result) throws MessagingException {
         User user = new User();
         user.setEmail(email);
         user.setUserName(username);
@@ -101,18 +100,54 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping(value = "/checkEmail", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult checkEmail(@RequestParam("email")String email,JsonResult result){
+        User user = new User();
+        user.setEmail(email);
+        user = userService.selectUserByUser(user);
+        if(user!=null){
+            result.setFlag("false");
+            result.setMessage("邮箱已经被使用！");
+        }else{
+            result.setFlag("true");
+        }
+        return result;
+    }
+
     @RequestMapping(value = "/checkUserName", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResult checkUserName(@RequestParam("username")String username){
-        JsonResult result = new JsonResult();
+    public JsonResult checkUserName(@RequestParam("username")String username,@RequestParam("flag")String flag,JsonResult result){
         User user = new User();
         user.setUserName(username);
         user = userService.selectUserByUser(user);
-        if(user!=null){
+        if("register".equals(flag)){
+            if(user==null){
+                result.setFlag("true");
+            }else{
+                result.setFlag("false");
+                result.setMessage("用户已存在");
+            }
+        }else if("login".equals(flag)){
+            if(user!=null){
+                result.setFlag("true");
+            }else{
+                result.setFlag("false");
+                result.setMessage("用户不存在");
+            }
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/verifyCode", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult verifyCode(@RequestParam("code")String code,HttpSession session,JsonResult result){
+        String sessionCode = (String)session.getAttribute("code");
+        if(sessionCode!=null && code.toLowerCase().equals(sessionCode.toLowerCase())){
             result.setFlag("true");
         }else{
             result.setFlag("false");
-            result.setMessage("用户不存在");
+            result.setMessage("验证码不匹配！");
         }
         return result;
     }

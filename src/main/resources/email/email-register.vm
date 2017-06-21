@@ -5,7 +5,7 @@
 <body>
 <h3> 您好：${user.userName}:</h3>
 <p>感谢注册惊叹号，请点击以下链接激活账号，</p>
-<p><a href="http://localhost:8080/confirm/${token}">http://localhost:8080/confirm/${token}</a></p>
+<p><a href="http://localhost:8080/user/confirm/${token}.do">http://localhost:8080/user/confirm/${token}.do</a></p>
 如果以上链接无法点击，请将上面的地址复制到你的浏览器地址进入惊叹号。
 <h3>xiaochonzi</h3>
 <p>惊叹号设计者</p>

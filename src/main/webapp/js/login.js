@@ -12,7 +12,8 @@ function checkUserName(h,f){
          cache:false,
          async:false,
          data:{
-             username:h
+             username:h,
+             flag:"login"
          },
          success:function(ret){
              if(ret.flag == "true"){

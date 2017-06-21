@@ -53,7 +53,7 @@
             <if test="memberSince!=null">
                 member_since = #{memberSince},
             </if>
-            <if test="last_seen!=null">
+            <if test="lastSeen!=null">
                 last_seen = #{lastSeen},
             </if>
             <if test="avatarHash!=null">
