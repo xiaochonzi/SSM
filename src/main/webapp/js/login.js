@@ -6,19 +6,19 @@ function checkUserName(h,f){
     var e = ""
     if(h!=null&&h!=""){
      $.ajax({
-         url:"/checkUserName",
+         url:"/user/checkUserName.do",
          type:"post",
          dataType:"json",
          cache:false,
          async:false,
          data:{
-             username:f
+             username:h
          },
          success:function(ret){
              if(ret.flag == "true"){
                  i = true;
              }else{
-                 e = "用户名不存在";
+                 e = ret.message;
              }
          },
          error:function(){
@@ -28,6 +28,8 @@ function checkUserName(h,f){
     }else{
         e = "请输入用户名";
     }
+    $("#nametan").css("display","block");
+    $("#nametan").html(e);
     return i;
 }
 function checkPwd(d) {
@@ -41,6 +43,7 @@ function checkPwd(d) {
     return i;
 }
 function doLogin(){
+    var error = "";
     var l = false;
     var m = false;
     var i = false;
@@ -53,24 +56,28 @@ function doLogin(){
     }
     if(l && m){
         $.ajax({
-            url:"/login",
+            url:"/user/doLogin.do",
             type:"post",
             dataType:"json",
             data:{
                 username:name,
-                password:pwd
+                password:pwd,
+                remember:remember
             },
             cache:false,
             success:function(ret){
                 if(ret.flag=="true"){
                     location.href = "/welcome"
                 }else{
-
+                    error = ret.message;
                 }
             },
             error:function(){
-
+                error = "登录失败！";
             }
         });
+    }
+    if(error!=""){
+        console.log(error);
     }
 }

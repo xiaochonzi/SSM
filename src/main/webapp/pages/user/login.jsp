@@ -28,7 +28,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" id="password" name="password"> &nbsp;&nbsp;<a href="">忘记密码？</a>
+                        <input type="password" id="password" name="password" placeholder="请输入密码" autocomplete="off"> &nbsp;&nbsp;<a href="#">忘记密码？</a>
                         <br/>
                         <div id="pwdtan" style="display: none;"></div>
                     </td>
@@ -40,7 +40,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="button" id="loginBtn" onclick="doLogin();">
+                        <input type="button" id="loginBtn" onclick="doLogin();" value="登录"/>
                     </td>
                 </tr>
             </table>
