@@ -8,16 +8,16 @@
         <result column="email" property="email"/>
         <result column="username" property="userName"/>
         <result column="password_hash" property="passwordHash"/>
-        <result column="comfirmed" property="comfirmed"/>
+        <result column="confirmed" property="confirmed"/>
         <result column="last_seen" property="lastSeen"/>
         <result column="member_since" property="memberSince"/>
         <result column="avatar_hash" property="avatar_hash"/>
         <association property="role" column="role_id" javaType="com.xiaochonzi.entity.Role"
-                     select="com.xiaochonzi.dao.RoleDAO.selectByRole" fetchType="eager"/>
+                     select="com.xiaochonzi.dao.RoleDAO.selectRoleById" fetchType="eager"/>
     </resultMap>
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.xiaochonzi.entity.User">
         INSERT into bangF.user (email, username, password_hash, confirmed, member_since, last_seen, avatar_hash, role_id)
-        VALUES (#{email},#{userName},#{passwordHash},#{comfirmed},#{memberSince},#{lastSeen},#{avatarHash},#{role.roleId})
+        VALUES (#{email},#{userName},#{passwordHash},#{confirmed},#{memberSince},#{lastSeen},#{avatarHash},#{role.id})
     </insert>
 
     <delete id="deleteUser" parameterType="com.xiaochonzi.entity.User">
@@ -47,8 +47,8 @@
             <if test="passwordHash!=null">
                 password_hash = #{passwordHash},
             </if>
-            <if test="comfirmed!=null">
-                comfirmed = #{comfirmed},
+            <if test="confirmed!=null">
+                confirmed = #{confirmed},
             </if>
             <if test="memberSince!=null">
                 member_since = #{memberSince},
@@ -59,8 +59,8 @@
             <if test="avatarHash!=null">
                 avatar_hash = #{avatarHash},
             </if>
-            <if test="role!=null and role.roleId!=null">
-                role_id = #{role.roleId}
+            <if test="role!=null and role.id!=null">
+                role_id = #{role.id}
             </if>
         </set>
         where id = #{id}

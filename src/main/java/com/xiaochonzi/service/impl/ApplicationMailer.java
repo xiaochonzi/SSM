@@ -59,8 +59,7 @@ public class ApplicationMailer implements MailService {
     public void sendMailSychronized(Email email) throws MessagingException {
         Session session = Session.getDefaultInstance(new Properties());
         MimeMessage message = new MimeMessage(session);
-        message.setContent("Content-Type","text/html;charset=UTF-8");
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        MimeMessageHelper helper = new MimeMessageHelper(message, true,"UTF-8");
         helper.setFrom(new InternetAddress(Constants.ADMIN_EMAIL));
         helper.setTo(email.getAddress());
         helper.setSubject(email.getSubject());

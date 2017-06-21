@@ -33,7 +33,7 @@ public class UserTest {
         user.setEmail("326688269@qq.com");
         user.setUserName("xiaochonzi");
         user.setPasswordHash("qazwsx1010");
-        user.setComfirmed(false);
+        user.setConfirmed(false);
         userService.register(user);
         String token = user.generateConfirmToken();
         System.out.println(token);

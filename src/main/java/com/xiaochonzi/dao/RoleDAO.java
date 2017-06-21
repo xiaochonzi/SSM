@@ -9,8 +9,15 @@ public interface RoleDAO {
 
     /**
      * 查找角色
-     * @param role
+     * @param id
      * @return
      */
-    public Role selectByRole(Role role);
+    public Role selectRoleById(int id);
+
+    /**
+     * 查找角色
+     * @param _default
+     * @return
+     */
+    public Role selectByDefault(boolean _default);
 }

@@ -28,7 +28,6 @@ import java.util.Map;
  * Created by stone on 17/6/11.
  */
 @Controller
-@SessionAttributes("user")
 @RequestMapping("/user")
 public class UserController {
 
@@ -47,14 +46,16 @@ public class UserController {
 
     @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
     @ResponseBody
-    public JsonResult login(@RequestParam String email, @RequestParam String password,
-                        @RequestParam("remember")String remember,HttpServletResponse response, Model model){
+    public JsonResult login(@RequestParam("username") String username, @RequestParam("password") String password,
+                        @RequestParam("remember")String remember,HttpServletResponse response,HttpSession session){
         JsonResult result = new JsonResult();
         User user = new User();
-        user.setEmail(email);
+        user.setUserName(username);
         user = userService.selectUserByUser(user);
         if(user!=null && user.verifyPassword(password)){
-            model.addAttribute("user",user);
+            user.setLastSeen(new Date());
+            userService.updateUser(user);
+            session.setAttribute("user",user);
             if("Y".equals(remember)){
                 Cookie cookie = new Cookie("userId",String.valueOf(user.getId()));
                 response.addCookie(cookie);
@@ -75,10 +76,10 @@ public class UserController {
         user.setEmail(email);
         user.setUserName(username);
         user.gernatePassword(password);
-        user.setComfirmed(false);
+        user.setConfirmed(false);
         user.setMemberSince(new Date());
 
-        Role role = roleService.selectRole(true);
+        Role role = roleService.selectRoleByDefault(true);
         user.setRole(role);
         int ret = userService.register(user);
         if(ret>0){
@@ -174,9 +175,9 @@ public class UserController {
         if(expiration>=System.currentTimeMillis()){
             User user = new User();
             user.setId(id);
-            user.setComfirmed(true);
+            user.setConfirmed(true);
             userService.updateUser(user);
-            return "redirect:/loginForm";
+            return "user/login";
         }else{
             m.addAttribute("message","链接失效");
             return null;

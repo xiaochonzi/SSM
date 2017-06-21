@@ -16,7 +16,7 @@ public class User {
     private String email;
     private String userName;
     private String passwordHash;
-    private Boolean comfirmed;
+    private Boolean confirmed;
     private Date memberSince;
     private Date lastSeen;
     private String avatarHash;
@@ -55,12 +55,12 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-    public Boolean getComfirmed() {
-        return comfirmed;
+    public Boolean getConfirmed() {
+        return confirmed;
     }
 
-    public void setComfirmed(Boolean comfirmed) {
-        this.comfirmed = comfirmed;
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public Date getMemberSince() {

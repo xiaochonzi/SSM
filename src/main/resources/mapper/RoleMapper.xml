@@ -9,18 +9,12 @@
         <result column="permission" property="permission" javaType="int"/>
         <result column="default" property="_default" javaType="boolean"/>
     </resultMap>
-    <select id="selectByRole" parameterType="com.xiaochonzi.entity.Role" resultMap="roleMap">
+    <select id="selectRoleById" parameterType="int" resultMap="roleMap">
         select id,name,permission from bangF.role
-        <where>
-            <if test="id!=null">
-                 id=#{id}
-            </if>
-            <if test="name!=null">
-               and `name` = #{name}
-            </if>
-            <if test="_default!=null">
-               and `default` = #{_default}
-            </if>
-        </where>
+        where id = #{id}
+    </select>
+
+    <select id="selectByDefault" parameterType="boolean" resultMap="roleMap">
+        select * from bangF.role where `default` = #{_default}
     </select>
 </mapper>
