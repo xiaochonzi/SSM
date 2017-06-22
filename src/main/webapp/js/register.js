@@ -86,6 +86,7 @@ function checkCaptcher(c){
                     f = true;
                 } else{
                     error = ret.message;
+                    changeRegValidataCode();
                 }
             }
         });
@@ -94,7 +95,8 @@ function checkCaptcher(c){
     return f;
 }
 function changeRegValidataCode(){
-
+    var src= "/user/dverifyCode.do?t="+new Date().getTime();
+    $("#regCaptcherImg").attr("src",src);
 }
 function doReigster(){
     var error = "";
@@ -126,7 +128,7 @@ function doReigster(){
             cache:false,
             success:function(ret){
                 if(ret.flag=="true"){
-                    window.location = "/pages/user/login.jsp";
+                    location.href = "/pages/user/registerSuccess.jsp";
                 }else{
                     error = ret.message;
                 }

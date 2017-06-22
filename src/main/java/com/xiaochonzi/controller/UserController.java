@@ -71,7 +71,7 @@ public class UserController {
     @RequestMapping("/doRegister")
     @ResponseBody
     public JsonResult register(@RequestParam("email")String email,@RequestParam("username")String username,
-                           @RequestParam("password")String password,JsonResult result) throws MessagingException {
+                           @RequestParam("password")String password,HttpSession session,JsonResult result) throws MessagingException {
         User user = new User();
         user.setEmail(email);
         user.setUserName(username);
@@ -83,6 +83,7 @@ public class UserController {
         user.setRole(role);
         int ret = userService.register(user);
         if(ret>0){
+            session.setAttribute("user",user);
             Email e_mail = new Email();
             e_mail.setAddress(email);
             e_mail.setSubject("感谢您注册");
@@ -177,7 +178,7 @@ public class UserController {
             user.setId(id);
             user.setConfirmed(true);
             userService.updateUser(user);
-            return "user/login";
+            return "user/confirmSuccess";
         }else{
             m.addAttribute("message","链接失效");
             return null;
