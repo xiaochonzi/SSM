@@ -11,6 +11,13 @@
     <title>首页</title>
 </head>
 <body>
-
+<div>
+    <ul>
+        <li>您好，欢迎登陆惊叹号！</li>
+        <li>
+            <a href="${pageContext.request.contextPath}/user/"></a>
+        </li>
+    </ul>
+</div>
 </body>
 </html>
