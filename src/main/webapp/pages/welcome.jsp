@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: stone
@@ -21,6 +22,18 @@
             <a href="${pageContext.request.contextPath}/user/logout.do"></a>
         </li>
     </ul>
+</div>
+<div id="content">
+   <div id="editPost">
+
+   </div>
+    <div id="postContent">
+        <ul>
+        <c:forEach var="post" items="${userDetail.posts}">
+            <li>${post.body}</li>
+        </c:forEach>
+        </ul>
+    </div>
 </div>
 </body>
 </html>
