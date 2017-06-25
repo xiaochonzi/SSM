@@ -15,7 +15,10 @@
     <ul>
         <li>您好，欢迎登陆惊叹号！</li>
         <li>
-            <a href="${pageContext.request.contextPath}/user/"></a>
+            <a href="${pageContext.request.contextPath}/user/userInfo.do?userId=${user.id}"></a>
+        </li>
+        <li>
+            <a href="${pageContext.request.contextPath}/user/logout.do"></a>
         </li>
     </ul>
 </div>

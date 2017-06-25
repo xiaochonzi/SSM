@@ -185,4 +185,14 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "userInfo", method = RequestMethod.GET)
+    public String userInfo(@RequestParam("userId")int userId){
+        return null;
+    }
+
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String logout(){
+        return null;
+    }
+
 }
