@@ -27,7 +27,7 @@ public class ApplicationMailerTest {
         Email email = new Email();
         email.setSubject("测试");
         email.setAddress("326688269@qq.com");
-        mailService.sendMail(email);
+        mailService.sendMail(email,"email/email-register.vm");
     }
 
 }

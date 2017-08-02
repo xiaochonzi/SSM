@@ -44,9 +44,9 @@ public class ApplicationMailer implements MailService {
      * @throws MessagingException
      */
 
-    public void sendMail(Email email){
+    public void sendMail(Email email,String templateL){
         try{
-            sendMailSychronized(email);
+            sendMailSychronized(email,templateL);
         }catch (MessagingException e){
             e.printStackTrace();
         }
@@ -56,14 +56,14 @@ public class ApplicationMailer implements MailService {
      * 同步邮件发送
      * @param email
      */
-    public void sendMailSychronized(Email email) throws MessagingException {
+    public void sendMailSychronized(Email email,String templateL) throws MessagingException {
         Session session = Session.getDefaultInstance(new Properties());
         MimeMessage message = new MimeMessage(session);
         MimeMessageHelper helper = new MimeMessageHelper(message, true,"UTF-8");
         helper.setFrom(new InternetAddress(Constants.ADMIN_EMAIL));
         helper.setTo(email.getAddress());
         helper.setSubject(email.getSubject());
-        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "email/email-register.vm", "UTF-8", email.getModel());
+        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, templateL, "UTF-8", email.getModel());
         helper.setText(text, true);
         mailSender.send(message);
     }

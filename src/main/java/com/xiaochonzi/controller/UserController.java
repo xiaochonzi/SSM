@@ -68,7 +68,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping("/doRegister")
+    @RequestMapping(value = "/doRegister",method = RequestMethod.POST)
     @ResponseBody
     public JsonResult register(@RequestParam("email")String email,@RequestParam("username")String username,
                            @RequestParam("password")String password,HttpSession session,JsonResult result) throws MessagingException {
@@ -92,7 +92,7 @@ public class UserController {
             model.put("user",user);
             model.put("token",token);
             e_mail.setModel(model);
-            mailService.sendMail(e_mail);
+            mailService.sendMail(e_mail,"email/email-register.vm");
             result.setFlag("true");
             result.setMessage("注册成功");
         }else{
@@ -117,7 +117,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "/checkUserName", method = RequestMethod.POST)
+    @RequestMapping(value = "/checkUserName")
     @ResponseBody
     public JsonResult checkUserName(@RequestParam("username")String username,@RequestParam("flag")String flag,JsonResult result){
         User user = new User();
@@ -141,7 +141,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "/verifyCode", method = RequestMethod.POST)
+    @RequestMapping(value = "/verifyCode")
     @ResponseBody
     public JsonResult verifyCode(@RequestParam("code")String code,HttpSession session,JsonResult result){
         String sessionCode = (String)session.getAttribute("code");
@@ -154,7 +154,7 @@ public class UserController {
         return result;
     }
 
-    @RequestMapping(value = "/dverifyCode",method = RequestMethod.GET)
+    @RequestMapping(value = "/dverifyCode")
     public void dverifyCode(HttpServletResponse response, HttpSession session) throws IOException {
         response.setContentType("image/jpeg");
         response.setHeader("Pragma","no-cache");
