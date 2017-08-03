@@ -51,7 +51,7 @@
                 <td>
                     <input type="text" id="regCaptcher" name="regCaptcher">
                     <a>
-                        <img src="${pageContext.request.contextPath}/user/dverifyCode.do?t=<%=new Date().getTime()%>" id="regCaptcherImg">
+                        <img src="${pageContext.request.contextPath}/user/dverifyCode?t=<%=new Date().getTime()%>" id="regCaptcherImg">
                     </a>
                     <a href="javascript:changeRegValidataCode();">换一张</a>
                 </td>

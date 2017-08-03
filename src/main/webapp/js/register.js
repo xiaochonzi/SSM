@@ -9,7 +9,7 @@ function checkEmail(e){
     var error = "";
     if(e!=null && e!=""){
         $.ajax({
-            url:"/user/checkEmail.do",
+            url:"/user/checkEmail",
             type:"post",
             dataType:"json",
             data:{
@@ -33,7 +33,7 @@ function checkUserName(n){
     var error = "";
     if(n!=null && n!=""){
         $.ajax({
-            url:"/user/checkUserName.do",
+            url:"/user/checkUserName",
             type:"post",
             dataType:"json",
             data:{
@@ -74,7 +74,7 @@ function checkCaptcher(c){
     var f = false;
     if(c!=null && c!= ""){
         $.ajax({
-            url:"/user/verifyCode.do",
+            url:"/user/verifyCode",
             type:"post",
             dataType:"json",
             data:{
@@ -95,7 +95,7 @@ function checkCaptcher(c){
     return f;
 }
 function changeRegValidataCode(){
-    var src= "/user/dverifyCode.do?t="+new Date().getTime();
+    var src= "/user/dverifyCode?t="+new Date().getTime();
     $("#regCaptcherImg").attr("src",src);
 }
 function doReigster(){
@@ -117,7 +117,7 @@ function doReigster(){
     }
     if(i && n && c){
         $.ajax({
-            url:"/user/doRegister.do",
+            url:"/user/doRegister",
             type:"post",
             dataType:"json",
             data:{

@@ -6,7 +6,7 @@ function checkUserName(h,f){
     var e = ""
     if(h!=null&&h!=""){
      $.ajax({
-         url:"/user/checkUserName.do",
+         url:"/user/checkUserName",
          type:"post",
          dataType:"json",
          cache:false,
@@ -57,7 +57,7 @@ function doLogin(){
     }
     if(l && m){
         $.ajax({
-            url:"/user/doLogin.do",
+            url:"/user/doLogin",
             type:"post",
             dataType:"json",
             data:{
