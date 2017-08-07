@@ -93,4 +93,6 @@
 
 
     <context:component-scan base-package="com.xiaochonzi.aspect,com.xiaochonzi.service"/>
+
+    <import resource="classpath:spring-shiro.xml"/>
 </beans>
