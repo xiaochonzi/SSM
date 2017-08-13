@@ -32,7 +32,7 @@
         <property name="securityManager" ref="securityManager"/>
         <property name="filters">
             <util:map>
-                <entry key="authc" value="formAuthenticationFilter"/>
+                <entry key="authc" value-ref="formLoginFilter"/>
             </util:map>
         </property>
         <property name="filterChainDefinitions">
