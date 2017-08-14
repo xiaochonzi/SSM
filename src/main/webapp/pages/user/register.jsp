@@ -1,16 +1,10 @@
-<%@ page import="java.util.Date" %><%--
-  Created by IntelliJ IDEA.
-  User: stone
-  Date: 17/6/20
-  Time: 下午11:38
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>注册</title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/register.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/user/register.js"></script>
 </head>
 <body>
 <div id="header"></div>

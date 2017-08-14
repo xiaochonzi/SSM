@@ -1,16 +1,9 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: stone
-  Date: 17/6/18
-  Time: 下午11:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title></title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/login.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/user/login.js"></script>
 </head>
 <body>
 <div id="header"></div>
