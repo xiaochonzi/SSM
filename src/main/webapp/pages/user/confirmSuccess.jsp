@@ -8,10 +8,10 @@
 <c:choose >
     <c:when test="${sessionScope.user!=null}">
         恭喜， ${sessionScope.user.userName} 已经激活成功！
-        <a href="${pageContext.request.contextPath}/pages/welcome.jsp">发一条信息炫耀一下</a>
+        <a href="${pageContext.request.contextPath}/welcome">发一条信息炫耀一下</a>
     </c:when>
     <c:otherwise>
-        <c:redirect url="${pageContext.request.contextPath}/pages/user/login.jsp"></c:redirect>
+        <a href="${pageContext.request.contextPath}/login"></a>
     </c:otherwise>
 </c:choose>
 </body>
